@@ -1,0 +1,3 @@
+#!/bin/sh
+
+exec socat tcp-listen:70,fork,reuseaddr tcp:swich:70

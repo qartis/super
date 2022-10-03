@@ -1,0 +1,3 @@
+#!/bin/sh
+
+exec ampr-ripd -d -i tun44 -t 44 2>&1
