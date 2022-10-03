@@ -1,0 +1,37 @@
+#!/usr/bin/expect
+
+if {$argc != 2 } {
+    puts "Usage: <port> <status>\r"
+    puts "Example: 1/0/23 1\r"
+    exit
+}
+
+set hostname "192.168.3.1"
+set username "admin"
+set password ""
+set port [lindex $argv 0]
+set status [lindex $argv 1]
+
+spawn telnet $hostname
+expect "User:"
+send "$username\r"
+expect "Password:"
+send "$password\r"
+
+expect "T1600G-28PS>"
+send "enable\r"
+
+
+expect "T1600G-28PS#"
+send "configure\r"
+
+send "interface gigabitEthernet $port\r"
+if {$status eq "1"} {
+	send "power inline supply enable\r"
+} else {
+	send "power inline supply disable\r"
+}
+send "exit\r"
+send "exit\r"
+send "exit\r"
+send "exit\r"
